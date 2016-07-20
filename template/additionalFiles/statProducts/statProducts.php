@@ -5,13 +5,17 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/system/db.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/system/controller.php');
 
 
-function getRequestCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters){
+function getRequestCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter){
     if ($dateFrom)
         $dateFromWhere = "AND Z.date_stat >= '$dateFrom'";
     if ($dateTo)
         $dateToWhere = "AND Z.date_stat <= '$dateTo'";
     if ($city)
-        $cityWhere = "AND Z.delivery_adress LIKE '%$city%'";
+        $cityWhere = "AND Z.delivery_adress LIKE '%$city%'";  
+   
+    if($noUtmFilter == "true") {
+        $noUtmWhere = "AND Z.utm_source = ''";
+    }
 
     if ($additionalFilters){
         $additionalFiltersStr = "";
@@ -32,11 +36,11 @@ function getRequestCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFi
     $dateToWhere
     $cityWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND Z.cart = 0
     GROUP BY PO.product_id
     ORDER BY P.name";
 
-    $prooductStat["query1"] = $query;
 
     // echo $query.PHP_EOL.PHP_EOL;
     $dbRes = mysql_query($query) or die(mysqlResponseFail($query, mysql_error()));
@@ -55,6 +59,7 @@ function getRequestCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFi
     $dateToWhere
     $cityWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND P.only_profit != 'on'
     AND PO.status_buy = 1
     AND Z.cart = 0
@@ -76,6 +81,7 @@ function getRequestCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFi
     $dateToWhere
     $cityWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND PO.status_buy = 1
     AND P.only_profit != 'on'
     AND Z.cart = 0";
@@ -86,13 +92,62 @@ function getRequestCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFi
     $productStat['summury']['requestCount'] = $row['requestCount'];
 }
 
-function getOrderCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters){
+function getCountOfNewOrder(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter){
+    if ($dateFrom)
+        $dateFromWhere = "AND Z.date_stat >= '$dateFrom'";
+    if ($dateTo)
+        $dateToWhere = "AND Z.date_stat <= '$dateTo'";
+    if ($city)
+        $cityWhere = "AND Z.delivery_adress LIKE '%$city%'";  
+   
+    if($noUtmFilter == "true") {
+        $noUtmWhere = "AND Z.utm_source = ''";
+    }
+
+    if ($additionalFilters){
+        $additionalFiltersStr = "";
+        foreach ($additionalFilters as $key => $filter) {
+            $additionalFiltersStr .= "AND Z.".$filter->param." LIKE '%".$filter->value."%'
+            "; 
+        }
+    }
+
+
+    $query = "SELECT PO.product_id, COUNT(DISTINCT Z.id) as countOfNew
+    FROM zakazy as Z
+    LEFT JOIN product_order as PO ON Z.order_id = PO.order_id
+    LEFT JOIN product AS P ON P.id = PO.product_id
+    WHERE Z.status NOT IN (23,28)
+    $dateFromWhere 
+    $dateToWhere
+    $cityWhere
+    $additionalFiltersStr
+    $noUtmWhere
+    AND P.only_profit != 'on'
+    AND PO.status_buy = 1
+    AND Z.cart = 0
+    AND Z.new = 1
+    GROUP BY PO.product_id";
+
+
+    // echo $query.PHP_EOL.PHP_EOL;
+    $dbRes = mysql_query($query) or die(mysqlResponseFail($query, mysql_error()));
+    while ($row = mysql_fetch_assoc($dbRes))
+        $productStat[$row['product_id']]['countOfNew'] = $row['countOfNew'] ? $row['countOfNew'] : 0;
+    
+
+}
+
+function getOrderCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter){
     if ($dateFrom)
         $dateFromWhere = "AND Z.date_stat >= '$dateFrom'";
     if ($dateTo)
         $dateToWhere = "AND Z.date_stat <= '$dateTo'";
     if($city)
         $cityWhere = "AND Z.delivery_adress LIKE '%$city%'";
+    if($noUtmFilter == "true") {
+        $noUtmWhere = "AND Z.utm_source = ''";
+    }
     if ($additionalFilters){
         $additionalFiltersStr = "";
         foreach ($additionalFilters as $key => $filter) {
@@ -110,6 +165,7 @@ function getOrderCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilt
     $dateToWhere
     $cityWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND PO.status_buy = 1
     AND P.only_profit != 'on'
     AND Z.cart = 0
@@ -129,6 +185,7 @@ function getOrderCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilt
     $dateToWhere
     $cityWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND PO.status_buy = 1
     AND P.only_profit != 'on'
     AND Z.cart = 0";
@@ -139,13 +196,16 @@ function getOrderCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilt
     $productStat['summury']['orderCount'] = $row['orderCount'];    
 }
 
-function getSaledProductCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters){    
+function getSaledProductCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter){    
     if ($dateFrom)
         $dateFromWhere = "AND Z.date_stat >= '$dateFrom'";
     if ($dateTo)
         $dateToWhere = "AND Z.date_stat <= '$dateTo'";
     if($city)
         $cityWhere = "AND Z.delivery_adress LIKE '%$city%'";
+    if($noUtmFilter == "true") {
+        $noUtmWhere = "AND Z.utm_source = ''";
+    }
     if ($additionalFilters){
         $additionalFiltersStr = "";
        foreach ($additionalFilters as $key => $filter) {
@@ -163,6 +223,7 @@ function getSaledProductCount(&$productStat, $dateFrom, $dateTo, $city, $additio
     $dateToWhere
     $cityWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND Z.cart = 0
     GROUP BY PO.product_id";
     // echo $query.PHP_EOL.PHP_EOL;
@@ -174,13 +235,16 @@ function getSaledProductCount(&$productStat, $dateFrom, $dateTo, $city, $additio
     }
 }
 
-function getAdditonalSaledProductCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters){    
+function getAdditonalSaledProductCount(&$productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter){    
     if ($dateFrom)
         $dateFromWhere = "AND Z.date_stat >= '$dateFrom'";
     if ($dateTo)
         $dateToWhere = "AND Z.date_stat <= '$dateTo'";
     if($city)
         $cityWhere = "AND Z.delivery_adress LIKE '%$city%'";
+    if($noUtmFilter == "true") {
+        $noUtmWhere = "AND Z.utm_source = ''";
+    }
     if ($additionalFilters){
         $additionalFiltersStr = "";
         foreach ($additionalFilters as $key => $filter) {
@@ -198,6 +262,7 @@ function getAdditonalSaledProductCount(&$productStat, $dateFrom, $dateTo, $city,
     $dateFromWhere 
     $dateToWhere
     $additionalFiltersStr
+    $noUtmWhere
     AND Z.cart = 0
     GROUP BY PO.product_id";
     // echo $query.PHP_EOL.PHP_EOL;
@@ -215,15 +280,17 @@ function getStatProducts(){
     $dateFrom = $_POST['dateFrom'];
     $dateTo = $_POST['dateTo'];
     $city = $_POST['city'];
+    $noUtmFilter = $_POST['no_utm'];
 
     $productStat = array();
 
     $additionalFilters = json_decode($_POST["filters"]);
 
-    getRequestCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters);
-    getOrderCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters);
-    getSaledProductCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters);
-    getAdditonalSaledProductCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters);
+    getRequestCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter);
+    getCountOfNewOrder($productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter);
+    getOrderCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter);
+    getSaledProductCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter);
+    getAdditonalSaledProductCount($productStat, $dateFrom, $dateTo, $city, $additionalFilters, $noUtmFilter);
 
     foreach ($productStat as $key => $value) {
         if (!$value['requestCount']) $value['requestCount'] = 0;
@@ -236,6 +303,8 @@ function getStatProducts(){
         if (!$productStat[$key]['orderCount']) $productStat[$key]['orderCount'] = 0;
         if (!$productStat[$key]['saledProductCount']) $productStat[$key]['saledProductCount'] = 0;
         if (!$productStat[$key]['profit']) $productStat[$key]['profit'] = 0;
+        
+        if (!$productStat[$key]['countOfNew']) $productStat[$key]['countOfNew'] = 0;
 
         $productStat[$key]['cv2'] = round($value['orderCount'] / $value['requestCount'] * 100, 2);
         $productStat[$key]['avgCheck'] = round($value['saledProductCount'] / $value['orderCount'], 2);
@@ -249,6 +318,7 @@ function getStatProducts(){
         if ($productStat[$key]['only_profit'] != 'on')
             $productStat['summury']['addSaledProductCount'] += $value['addSaledProductCount'];   
         $productStat['summury']['profit'] += $value['profit'];   
+        $productStat['summury']['countOfNew'] += $value['countOfNew'];
     }
 
     if (!$productStat['summury']['requestCount']) $productStat['summury']['requestCount'] = 0;
@@ -256,6 +326,8 @@ function getStatProducts(){
     if (!$productStat['summury']['profit']) $productStat['summury']['profit'] = 0;
     if (!$productStat['summury']['saledProductCount']) $productStat['summury']['saledProductCount'] = 0;
     if (!$productStat['summury']['addSaledProductCount']) $productStat['summury']['addSaledProductCount'] = 0;
+    
+    if (!$productStat['summury']['countOfNew']) $productStat['summury']['countOfNew'] = 0;
 
 
     $productStat['summury']['cv2'] = round($productStat['summury']['orderCount'] / $productStat['summury']['requestCount'] * 100, 2);
@@ -274,6 +346,7 @@ function getStatProducts(){
         <td style=\"text-align: left;\">".$value['name']."</td>
         <td>".$value['requestCount']."</td>
         <td>".$value['orderCount']."</td>
+        <td>".$value['countOfNew']."</td>
         <td>".$value['cv2']."%</td>
         <td>".$value['saledProductCount']."</td>
         <td>".$value['avgCheck']."</td>
@@ -288,6 +361,7 @@ $summury .= "<tr style=\"font-weight: bold\">
 <td></td>
 <td>".$productStat['summury']['requestCount']."</td>
 <td>".$productStat['summury']['orderCount']."</td>
+<td>".$productStat['summury']['countOfNew']."</td>
 <td>".$productStat['summury']['cv2']."%</td>
 <td>".$productStat['summury']['saledProductCount']."</td>
 <td>".$productStat['summury']['avgCheck']."</td>
@@ -296,7 +370,7 @@ $summury .= "<tr style=\"font-weight: bold\">
 <td>".$productStat['summury']['avgProfit']."</td>
 </tr>";
 
-$response = array("success" => true, "productStat" => $table, "total" => $summury, "addf" => $additionalFilters);
+$response = array("success" => true, "productStat" => $table, "total" => $summury, "no_utm" => $noUtmFilter);
 echo json_encode($response); 
 }
 

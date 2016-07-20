@@ -1,7 +1,12 @@
 var searchStr = '';
 function getStatProducts(){
 
-    var filters = getFilters();
+    var filters;
+    
+    if(!$('.checkbox-no-utm').prop('checked')) {
+        filters = getFilters();
+    }
+    
     filters = JSON.stringify(filters);
 
     $.ajax({
@@ -12,7 +17,8 @@ function getStatProducts(){
             dateFrom: $('#between-start-pr').val(),
             dateTo: $('#between-end-pr').val(),
             city: $('#city').val(),
-            filters: filters
+            filters: filters,
+            no_utm: $('.checkbox-no-utm').prop('checked')
         },
         beforeSend: function() {
             WaitingBarShow('Обработка запроса...'); 
@@ -50,7 +56,7 @@ function getStatProducts(){
 function addFilter(){
     var div = $("<div>");
     var select = $("<select>",{
-        "class" : "filter_param"
+        "class" : "filter-param"
     }).append(
         '<option value="utm_campaign">Кампания</option>',
         '<option value="utm_content">Тизер</option>',
@@ -58,7 +64,7 @@ function addFilter(){
     
     var input = $("<input>",{
         "type" : "text",
-        "class" : "filter_value" 
+        "class" : "filter-value" 
     }).keyup(function(event) {
         if (event.keyCode == 13)
             getStatProducts();
@@ -68,17 +74,27 @@ function addFilter(){
         "class" : "delete-filter-button button button-period button-error"
     }).click(function(event) {
         $(this).parent().remove();
+        if($('.filter-panel').children().length == 0) {
+            $('.apply-filters-button').css('display', 'none');
+        }
+        else {
+            $('.apply-filters-button').css('display', 'block');
+        }
     }).text("X");
-
+    
     $(".filter-panel").append(div);
     $(div).append(select, input, deleteButton);
+    
+    if($('.filter-panel').children().length > 0) {
+        $('.apply-filters-button').css('display', 'block');
+    }
 }
 
 function getFilters(){
     var filters = {};
 
-    var filter_params = $(".filter_param");
-    var filter_values = $(".filter_value");
+    var filter_params = $(".filter-param");
+    var filter_values = $(".filter-value");
 
     for(var i = 0; i < filter_params.length; i++){
         filters[i] = {};
@@ -120,4 +136,24 @@ $(document).ready(function(){
     $(".apply-filters-button").click(function() {
         getStatProducts();
     });
+    
+    $('.checkbox-no-utm').on('change', function() {
+        if($(this).prop('checked')) {
+            $('.filter-param').prop('disabled', 'true');
+            $('.filter-value').prop('disabled', 'true');
+            $('.delete-filter-button').prop('disabled', 'true');
+            $('.apply-filters-button').prop('disabled', 'true');
+        }
+        else {
+            $('.filter-param').removeAttr('disabled');
+            $('.filter-value').removeAttr('disabled');
+            $('.delete-filter-button').removeAttr('disabled');
+            $('.apply-filters-button').removeAttr('disabled');
+        }
+        getStatProducts();
+    });
+    
+    $('.apply-filters-button').css('display', 'none');
+    
+    
 });   

@@ -75,6 +75,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'/modules/np/get_np_city_list.php');
         <tr>
             <td>ИТОГО</td>
             <td>Заявок</td>
+            <td>Из них NEW</td>
             <td>Заказов</td>
             <td>CV2</td>
             <td>Товаров<br>продано</td>
@@ -93,6 +94,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'/modules/np/get_np_city_list.php');
         <button class="add-filter-button button">
             Добавить фильтр
         </button>
+        <label><input type="checkbox" class="checkbox-no-utm">Заказы без меток</label>
     </div>
     <div class="filter-panel"> 
     </div>
@@ -108,6 +110,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'/modules/np/get_np_city_list.php');
         <tr>
             <td>Товар</td>
             <td>Заявок</td>
+            <td>Из них NEW</td>
             <td>Заказов</td>
             <td>CV2</td>
             <td>Товаров<br>продано</td>

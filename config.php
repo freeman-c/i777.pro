@@ -2,8 +2,8 @@
 //*********************** localhost ************************
 error_reporting(0);
 define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'lp-crm');
-define('DB_PASSWORD', '23drfyDFCCD4UezZ');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
 define('DB_DATABASE', 'shop_roznica');
 
 define('TIME_ZONE', 'Europe/Kiev');
