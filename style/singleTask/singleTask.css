@@ -1,0 +1,9 @@
+#table-list_wrapper{
+    width: 600px;      
+}
+#table-list tbody td {
+    border: none;
+}
+#table-list tbody tr {
+    border-bottom: 1px solid #EEE;
+}

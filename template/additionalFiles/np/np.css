@@ -1,0 +1,63 @@
+.np-api-logo-conteiner{
+    float: left;
+    width: 30%;
+}
+.update-warehouses-list-button-container{
+    float: left;
+    text-align: right;
+    width: 70%;
+}
+#table-np{
+    min-width: 980px;
+    width: 100%;
+    border-top: 4px solid #FF392E;
+    padding: 4px;
+}
+#table-np td{
+    padding: 0px 8px;
+}
+#table-np pre{
+    font-size: 11px;
+}
+#ajax-result-np-table{
+    border: 2px dashed #FF392E;
+    padding: 1px;
+}
+.td-grey{
+    color:#757575;
+}
+#ajax-result-np-table td{
+    border-bottom: 1px solid #E3E3E3;
+    background: #FFE;
+}
+#button-np{
+    background: #FF301E;
+    color: #FFF;
+    border: 1px solid #D9111B;;
+    padding: 3px 6px 3px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+#result-np{
+    padding: 4px;         
+}
+#city-list{
+    overflow: auto; 
+    height: 290px;
+    border:1px solid #F6F6F6;
+}
+#table-warenhouse-list td{
+    font-size: 11px;
+    padding: 2px;
+}
+#table-warenhouse-list thead td{
+    background: #DCE5EF;
+    border-bottom: 2px solid #ACCADC;
+    font-weight: bold;
+}
+#table-warenhouse-list tbody tr:nth-child(odd){
+    background: #FFF;
+}
+#table-warenhouse-list tbody tr:nth-child(even){        
+    background: #E9EFF8;
+}

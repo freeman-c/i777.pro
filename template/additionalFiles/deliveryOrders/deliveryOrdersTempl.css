@@ -1,0 +1,196 @@
+#session_orders,#session_office,#session_payment,#session_delivery,#session_manager{
+        font: 13px 'tooltip';
+    }
+    #form-delivery-orders{
+        overflow: auto;
+        width: 1032px;
+        min-height: 380px;
+        max-height: 380px;
+        padding-bottom: 30px;
+        border-top: 1px solid #6A9FD0;
+        border-left: 1px solid #B3DCE6;
+        border-right: 1px solid #B3DCE6;
+        border-bottom: 1px solid #B3DCE6; 
+        position: relative;
+        z-index: 792;
+        margin-top: -1px;
+    }
+    .table-box-orders{
+        font-size: 12px;
+        font-family: 'tooltip';
+        text-shadow: 0px 1px #FFF;
+    }
+    #table-list{
+        background: #FFF;
+        width: 100%;
+    }
+    #table-list thead th{
+        padding: 5px 8px;
+        white-space: nowrap;
+        border-bottom: 1px solid #EEE;
+    }
+    #table-list tbody tr:hover{
+        background: #FF9 !important;
+        color: #333 !important;
+    }
+    #table-list tbody td{
+        padding: 1px 8px;
+        white-space: nowrap;
+        text-shadow: none;        
+    }
+    .fifnish-row{
+        background: #C7E16C;
+        color: green !important;
+    }
+    #preloader{
+        text-align: center;
+        padding: 30px;
+    }
+    /*------- data Table -----*/
+    #table-list_wrapper{
+    }
+    #table-list_length{
+        margin-right:100px;
+        position: fixed;
+        top: 55px;
+        font-size: 14px;
+    }
+    .dataTables_empty{
+        color: #F00;
+    }
+    #table-list_filter{
+        /*display: none;*/
+        position: fixed;
+        top: 56px;
+        left: 500px;
+        font-size: 14px;
+    }
+    #table-list_info{
+        display: none;
+    }
+    
+    #table-list_length,#table-list_filter,#table-list_paginate,#table-list_info{
+        margin-top: 6px;
+        margin-bottom: 10px;
+        font-family: 'magistral';
+        color: #3F80C0;
+    }
+    #table-list_paginate .ui-state-default{
+        background: linear-gradient(to bottom, #F7FBFC 0px, #D9EDF2 40%, #ADD9E4 100%) transparent;
+        border: 1px solid #6A9FD0;
+        border-radius: 2px;
+        color: #3F80C0;
+        margin: 0px 4px;        
+    } 
+    #table-list_paginate .ui-state-disabled{
+        background: linear-gradient(to bottom, #F6F8F9 0px, #E5EBEE 50%, #D7DEE3 51%, #F5F7F9 100%) transparent;
+        border: 1px solid #ABABAB; 
+        color: #757575 !important;
+    }
+    /*--------------------*/
+    .selected_row{
+        /*background: #045694 !important; 
+        color: #FFF !important;*/
+        background: #FED24E;
+    }
+    .selected-row-in-table{
+        background: #C60 !important;
+        color: #DDD !important;
+    }
+    /*---*/
+    #box-input-select-all{
+        background: #045694 !important;
+    }
+    .box-arrow-down { 
+        border-top: 9px solid #045694 !important;
+    }
+    /*---*/
+    .count-tovary{
+        padding: 0px 4px 1px;
+        border: 1px solid #C60;
+        background: #FF9;
+        cursor: default;
+        position: relative;
+        /*z-index: 940;*/
+    }
+    .popup-box-count-tovary{
+        display: none;
+        position: absolute;
+        width: 242px;
+        /*min-height: 60px;*/
+        max-height: 120px;
+        background: #FFF;
+        border: 1px solid #C60;
+        box-shadow: 0px 1px 5px #999;
+        border-radius: 3px;
+        top: -20px;
+        left: 23px;
+        padding: 2px 4px;
+        z-index: 940;
+    }
+    .popup-box-count-tovary:before, .popup-box-count-tovary:after{
+        content: ''; 
+        position: absolute;
+        left: -21px; 
+        top: 16px;
+        border: 10px solid transparent;
+        border-right: 10px solid #C60;
+    }
+    .popup-box-count-tovary:after {
+        border-right: 10px solid #FFF;
+        left: -19px; 
+    }
+    .popup-box-count-tovary table{        
+        text-shadow: 0px 1px 1px #FFF;
+    }
+    .count-tovary:hover > .popup-box-count-tovary{
+        display: block;
+    }
+    /*------*/
+    #between{
+        padding: 5px 10px;
+        /*position: absolute;
+        left: 360px;
+        top: 4px;
+        z-index: 9;*/
+    }
+    #button-between{
+        padding: 2px 10px;
+        font-size: 13px;
+        border-radius: 5px;
+    }
+    #search-ajax-button, .page-selector{
+        padding: 2px 10px;
+        font-size: 13px;
+        border-radius: 5px;
+    }
+    /*--------- date picker arrow ---------*/
+    #ui-datepicker-div:before, #ui-datepicker-div:after{
+        content: ''; 
+        position: absolute;
+        left: 17px; 
+        top: -20px;
+        border: 10px solid transparent;
+        border-bottom: 10px solid #045694;
+    }
+    #ui-datepicker-div:after {
+        border-bottom: 12px solid #FFF;
+        top: -18px; 
+    }
+    #select-filter-product{
+        width: 260px;
+    }
+
+.statuses-tabs-container{
+    position: relative; 
+    width: 1000px; 
+}
+
+.column-heading th{
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.delivery-orders-table td{
+    font-size: 12px;
+}

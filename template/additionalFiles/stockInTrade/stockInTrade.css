@@ -1,0 +1,21 @@
+.stock-in-trade-table{
+	width: 100%;
+}
+
+.stock-in-trade-table tbody tr:hover{
+	background-color: #FF9;
+}
+
+.product-reserve-input{
+	display: none;
+}
+
+.product-reserve-button{
+	display: none;
+    padding: 2px 5px !important;
+    font-size: 12px !important;
+}
+
+.product-reserve-td{
+	width: 300px;
+}

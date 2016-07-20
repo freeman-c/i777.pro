@@ -1,0 +1,47 @@
+.stat-advertising-table{
+	width: 100%;
+}
+
+.button-period{
+    font-size: 13px;
+    padding: 2px 10px;
+    -webkit-border-radius: 2px;
+            border-radius: 2px;
+}
+
+.stat-total-table {
+    /*width: 100%;*/
+}
+
+
+#adStat,#adStatTotal{
+    font-family: Arial;
+    border-collapse: collapse;
+}
+
+#adStat tbody tr td, #adStatTotal tbody tr td{
+    border: 1px solid;
+    padding: 5px;
+    text-align: center;
+}
+
+#adStat thead tr td, #adStatTotal thead tr td{
+    border: 1px solid;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#adStat_length{
+    font-family: Arial;
+    color: #000;
+    margin-right:100px;
+}
+
+.even{
+    background-color: #DADADA;
+}
+
+#adStat_length, #adStat_filter, #adStat_paginate{
+    /*display: none;*/
+}

@@ -1,0 +1,16 @@
+.recomended-products-table{
+	/*width: 100%;*/
+	margin: 0 !important;
+}
+.selected-row-in-table{
+    background: #FF6 !important;
+}
+.on-off{
+    margin: 0px 0px -3px 0px;
+    cursor: pointer;
+}
+.product-img{
+    max-width: 40px;
+    max-height: 40px;
+    border: 1px solid #EEE;
+}

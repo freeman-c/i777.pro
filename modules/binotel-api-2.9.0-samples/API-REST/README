@@ -1,0 +1,143 @@
+# Binotel CTS API 2.0 SDK for PHP
+
+API REST используется для получения всей инфомрации с личного кабинета (звонки, мои клиенты, настройки) и инициирования звонков
+
+
+Внимание:
+    - у нас сейчас API работает в закрытом режиме, по этому необходимо предоставить IP адреса с которого вы будете делать запросы
+    - данные для API авторизации которые в примере (bootstrap.php) - нерабочие и представлены только для примера! Напишите письмо на адрес support@binotel.ua для получения ключа и пароля для Вашей компании.
+
+
+Примеры разделены на категории:
+    * stats - категория для получения данных по статистики звонков
+    * customers - категория для работы с мини-срм "Мои клиенты" 
+    * calls - категория для инициирования звонков
+    * settings - категория для получение настроек виртуальной АТС.
+
+
+Краткое описание методов в категориях:
+
+stats:
+    * stats/incoming-calls-for-period - входящие звонки за период
+    * stats/outgoing-calls-for-period - исходящие звонки за период
+    * stats/all-incoming-calls-since - входящие звонки с N времени по настоящее время
+    * stats/all-outgoing-calls-since - исходящие звонки с N времени по настоящее время
+    * stats/list-of-calls-by-internal-number-for-period - звонки по внутреннему номеру сотрудника за период (как входящие, так и исходящие, ограничение: период не может быть больше 7 дней)
+    * stats/list-of-calls-per-day - звонки за день (как входящие, так и исходящие)
+    * stats/list-of-lost-calls-for-today - потерянные звонки за сегодня
+    * stats/online-calls - звонки которые в онлайне
+    * stats/history-by-number - звонки по номеру телефона (как входящие, так и исходящие)
+    * stats/history-by-customer-id - звонки по идентификатору клиента (как входящие, так и исходящие)
+    * stats/recent-calls-by-internal-number - недавние звонки по внутреннему номеру сотрудника (как входящие, так и исходящие, ограничение: звонки за последние 2 недели, не более 50 звонков)
+    * stats/call-details - данные о звонке по идентификатору звонка
+    * stats/call-record - ссылка на запись разговора.
+
+customers:
+    * customers/list - выбор всех клиентов с мини-срм "Мои клиенты"
+    * customers/take-by-id - выбор клиентов с мини-срм "Мои клиенты" по идентификатору клиента
+    * customers/take-by-label - выбор клиентов с мини-срм "Мои клиенты" по метке
+    * customers/search - поиск клиентов в мини-срм "Мои клиенты" по имени или номеру телефона
+    * customers/create - создание клиента в мини-срм "Мои клиенты"
+    * customers/update - редактирование клиента в мини-срм "Мои клиенты"
+    * customers/delete - удаление клиента в мини-срм "Мои клиенты"
+    * customers/listOfLabels - выбор всех меток с мини-срм "Мои клиенты".
+
+calls:
+    * calls/ext-to-phone - инициирование двустороннего звонка (внутреннюю линию с внешним номером)
+    * calls/phone-to-phone - инициирование двустороннего звонка (внешний номер с внешним номером)
+    * calls/attended-call-transfer - перевод звонка с участием
+    * calls/hangup-call - завершение звонка
+    * calls/call-with-announcement - звонок с оповещением голосового файла.
+
+settings:
+    * settings/list-of-employees - выбор всех сотрудников
+    * settings/list-of-routes - выбор всех сценариев для входящих звонков
+    * settings/list-of-voice-files - выбор всех голосовых файлов (приветствий).
+
+
+Более детальную информацию смотрите в примерах.
+Для каждой категории, о которых упоминалось выше, есть свой файл с примерами: samples-api-rest-calls.php, samples-api-rest-customers.php, samples-api-rest-stats.php, samples-api-rest-settings.php.
+
+
+API REST имеет ограничения на частоту нагружаемых запросов.
+В каждую минуту есть возможность выполнить 5 нагружаемых запросов без ограничения, далее вступает ограничение.
+Нагружаемые методы, которые имеют ограничение и перерыв в секундах от предыдущего запроса:
+    * stats/incoming-calls-for-period - 10 секунд
+    * stats/outgoing-calls-for-period - 10 секунд
+    * stats/all-incoming-calls-since - 10 секунд
+    * stats/all-outgoing-calls-since - 10 секунд
+    * stats/list-of-calls-by-internal-number-for-period - 10 секунд
+    * stats/list-of-calls-per-day - 5 секунд
+    * stats/list-of-lost-calls-for-today - 10 секунд
+    * stats/online-calls - 5 секунд
+    * stats/history-by-number - 5 секунд
+    * stats/history-by-customer-id - 5 секунд
+    * stats/recent-calls-by-internal-number - 5 секунд
+    * stats/call-details - 5 секунд
+
+    * customers/list - 10 секунд
+    * customers/take-by-label - 10 секунд
+    * customers/listOfLabels - 5 секунды
+
+    * settings/list-of-employees - 5 секунды
+
+
+Ниже перечислены методы, которые имеют ограничения по количеству предоставляемых данных:
+    * stats/incoming-calls-for-period - 2 000 звонков за один запрос
+    * stats/outgoing-calls-for-period - 2 000 звонков за один запрос
+    * stats/all-incoming-calls-since - 1 000 звонков за один запрос
+    * stats/all-outgoing-calls-since - 1 000 звонков за один запрос
+    * stats/list-of-calls-by-internal-number-for-period - 2 000 звонков за один запрос
+Если результат API запроса соответствует ограничениям, Вам необходимо разделить временные промежутки в запросе на болеее мелкие.
+
+
+В директории ready-to-use-scripts присутствуют готовые скрипты.
+
+
+Зависимости REST API:
+    * php
+    * php curl
+
+Пример установки зависимостей на Ubuntu: apt-get install php5 php5-curl
+
+
+Техническое сопровождение и консультации по API осуществляются отделом технической поддержки по имейлу support@binotel.ua, или по телефону 044 333 40 23.
+
+
+
+
+Если у вас не PHP (!!!) и есть необходимость написать свою библиотеку обратите внимание на текст ниже.
+
+У нас API реализовано по RESTful принцыпу. То есть это POST запросы, по уникальным ссылкам для каждого метода.
+Для своей библиотеки Вам нужно только написать механизм генерации подписи.
+
+Кратко о написании своей API библиотеки:
+    - для авторизации используется: key, secret
+    - формат ссылок (категории и методы описаны выше): https://my.binotel.ua/api/2.0/stats/all-outgoing-calls-since.json, https://my.binotel.ua/api/2.0/calls/ext-to-phone.json
+    - метод HTTP запроса: POST
+    - формат передачи данных: raw post data в json
+    - обезательные параметры для передачи: key, signature
+    - алгоритм генерации signature: сортируем параметры по ключу (пример php функции http://us.php.net/ksort), далее делаем конкатинацию secret с переводом отсортированных параметров в json, и эта вся строка подается в функцию хеширования md5, её результат и будет подписью (важно чтобы сгенерируемая строка signature была в нижнем регистре).
+
+
+Пример создании подписи (signature) и финального JSON содержимого на PHP. Для PHP используйте уже готовую нашу библиотеку!
+
+$key = '6po1f4-7oPzCo1';
+$secret = '8weKdP-o2b12d-f6a2P8-eBw4c4-0d2g88wb';
+
+$params = array('timestamp' => 1390528862);
+ksort($params);  // $params массив параметров которые передаются на сервер.
+$params['signature'] = md5($secret . json_encode($params));
+$params['key'] = $key;
+$contentInJSON = json_encode($params);
+
+Во время написания своей библиотеки используйте параметры которые выше. У Вас содержимое JSON должно быть идентичным: {"timestamp":1390528862,"signature":"51188d8e42baff9ee4769969924c025b","key":"6po1f4-7oPzCo1"}
+
+
+Фактически, Вы шлете raw post data в json на адрес одного из методов.
+Пример: 
+    - ссылка: https://my.binotel.ua/api/2.0/stats/all-incoming-calls-since.json
+    - содержимое: {"timestamp":1390528862,"signature":"51188d8e42baff9ee4769969924c025b","key":"6po1f4-7oPzCo1"}
+    где timestamp - это необходимый атрибут для метода all-incoming-calls-since, signature - сгенерированная подпись, key - ключ который используеться для авторизации.
+
+

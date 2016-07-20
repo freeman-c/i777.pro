@@ -1,0 +1,42 @@
+#table-list{
+/*    width: 80% !important;
+*/}
+.comment{
+    width: 250px;
+    height: 50px;
+}
+
+.column-1{
+    text-align: right;
+    width: 40%;
+}
+
+.column-2{
+    width: 60%;
+}
+
+#modal-window{
+    width: 400px;
+    margin-left: -200px;
+}
+
+.single-tasks-states-container{
+    float: left;
+    padding: 0 14px 0 0;
+    margin: 14px 14px 0 0;
+    border-right: 1px solid #4A8CC7;
+    height: 429px;
+}
+
+.form-single-tasks-container{
+    float: left;
+}
+
+label{
+    margin: 5px 0 5px 0;
+    display: block;
+}
+
+label:hover{
+    background-color: #E9EFF8;
+}

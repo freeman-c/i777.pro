@@ -1,0 +1,194 @@
+
+
+#overlay *{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+#table-list-data td{
+    padding: 1px 4px;
+}
+input[name='total']{
+    background: transparent;
+    border: none;
+}
+input[name='total']:focus{
+    box-shadow: none;
+    background: #DDD;
+    border: none;
+}
+/*---*/
+#add-product-to-order{
+    background: linear-gradient(to bottom, #F6FFDB 0px, #A3EA27 100%) transparent;
+    border: 1px solid #9DCB2C;
+    border-radius: 5px;
+    color: #699A03;
+    cursor: pointer;
+    font-family: "tooltip";
+    font-size: 12px;
+    margin: 1px 0px 0px;
+    padding: 0px 10px 2px;
+    text-shadow: 0px 1px 1px #F6F6F6;
+}
+#order-product{
+    position: relative;
+    overflow: auto;
+    /*min-height: 100px;
+    max-height: 188px;*/
+    height: 180px;
+    width: 472px;
+    background: #FFF;
+    border: 1px solid #CCC;
+}
+#recomended-product-container{
+    position: relative;
+    overflow: auto;
+    height: 170px;
+    width: 280px;
+    background: #FFF;
+    border: 1px solid #CCC; 
+}
+
+#result-np{
+    display: none;
+    margin: 4px 0px -2px;
+    background: #FFF;
+    border: 1px dashed #D9111B;
+    border-radius: 5px;
+    padding: 1px;
+    font-size: 11px;
+}
+#result-pr{
+    display: none;
+    margin: 4px 0px -2px;
+    background: #FFF;
+    border: 1px dashed #0055A5;
+    border-radius: 5px;
+    padding: 1px;
+    font-size: 11px;
+}
+.sno-np{
+    color: #D9111B;
+    font-size: 15px;
+}
+.npComponentContainer{
+    /*display: none;*/
+    /*display: block;*/
+}
+.otherComponentConrainer{
+    display: none;
+}
+select{
+    width: 270px;
+}
+.order-table-container{
+    float: left;
+    width: 70%;
+}
+.script-view{
+    padding-left: 20px; 
+    display: none;
+}
+.menu-item-label{
+    text-shadow: none;
+    font-size: 13px;
+    color: #5f5f5f;
+}
+.expander {
+    margin: -1px 4px;
+    display: none;
+}
+#scripts-table{
+    border-collapse: collapse;
+    width: 100%;
+    height: 450px;
+}
+#scripts-table td{
+    padding: 0px;
+    margin: 0px;
+}
+#script-text{
+    width: 100%;
+}
+#script-text-textarea{
+    width: 565px;
+    height: 310px;
+    position: fixed;
+    color: #000;
+    background-color: #fff;
+    padding: 5px;
+    font-size: 14px;
+    font-family: Arial;
+    border-top: 1px solid #ABABAB;
+    border-left: 1px solid #ABABAB;
+}
+
+.menu-item-label-container{
+    text-decoration: underline;
+    padding-right: 20px;
+}
+.show-script-text{
+    font-size: 12px;
+    cursor: pointer;
+}
+.script-container{
+    width: 104%;
+    height: 255px;
+    overflow: scroll;
+    position: relative;
+    left: 2px;
+    border-left: 1px solid #ABABAB;
+    padding: 5px;
+}
+#modal-content {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.div-tooltip{
+    width: 400px;
+    height: 306px;
+    display: none;
+    position: fixed;
+    z-index: 100000;
+    
+    font-family: 'tooltip';
+    background: #FEC929;
+    color: #000;
+    padding: 5px 10px;
+    max-width: 360px;
+    box-shadow: 0px 0px 3px #999;
+    text-shadow: 0px 1px 1px #FFF;
+    overflow: auto;
+}
+.tooltip-text{
+    margin: 0px;
+    width: 100%;
+    height: 90%;
+    color: #000;
+    resize: none;
+}
+.tooltip-img-container, .tooltip-link-container{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.tooltip-img{
+    width: 100%;        
+}
+.td-fixed-height{
+    height: 30px;
+}
+.btnLinkContainer{
+    position: fixed;
+    top: 602px;
+    font-family: Arial;
+}
+.btnLinkContainer .btnLink{
+    height: 25px;
+    padding: 5px;
+    float: left;
+    text-decoration: underline;
+    cursor: pointer;        
+}
+

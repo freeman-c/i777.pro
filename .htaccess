@@ -1,0 +1,26 @@
+AddDefaultCharset utf-8
+
+<IfModule mod_php5.c>
+php_value post_max_size 50M
+php_value upload_max_filesize 50M
+php_value memory_limit 256M
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value session.gc_maxlifetime 999999
+php_value session.cookie_lifetime 28000
+</IfModule>
+
+Options -Indexes
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+#RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+RewriteRule ^([^?]*) index.php?_action_=$1 [L,QSA]
+
+#Options -Indexes
+#Options -Includes
+#Options +FollowSymlinks
