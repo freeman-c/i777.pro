@@ -96,6 +96,7 @@ function addFilter(){
     var select = $("<select>",{
         "class" : "filter-param"
     }).append(
+        '<option value="utm_source">Источник</option>',
         '<option value="utm_campaign">Кампания</option>',
         '<option value="utm_content">Тизер</option>',
         '<option value="utm_term">Площадка</option>');
