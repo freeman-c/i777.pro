@@ -59,10 +59,12 @@ if (checkOrderDublicate($checkedParam)){
 
     logOrderFromSite($current_order);
 
-    sendMailAboutNewOrder2($arr['bayer_name'], $arr['phone'], $arr['subject']);  
+    sendMailAboutNewOrder2($current_order['bayer_name'], $current_order['phone'], $current_order['subject']);  
 
-    if ($row['phone'] != '0638383006' && $row['phone']!= '0673387578' && $row['phone']!= '1111111111')
-        sendSMS($arr['order_id']);
+    if ($phone != '0638383006' && $phone != '0673387578'){
+        $turboSMSConnect = turboSMSAuth();
+        sendSMS($current_order['id'], $turboSMSConnect);
+    }
 }
     sendMailAboutNewOrder($arr, $row);
 
