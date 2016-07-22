@@ -304,6 +304,7 @@ $(document).ready(function(){
         </div>
         <ul class="menu-sub-list">
             <li><a href="/?action=statProducts" class="menu-sub-item">По товарам</a></li>        
+            <li><a href="/?action=statProductsTotal" class="menu-sub-item">По всем товарам</a></li> 
             <li><a href="/?action=statManagers" class="menu-sub-item">По менеджерам</a></li>     
             <li><a href="/?action=statAdvertising" class="menu-sub-item">По рекламе</a></li>        
         </ul>
