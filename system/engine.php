@@ -125,7 +125,7 @@ function Render(){
                     'single_task',
                     'ban_ip', 'ban_phone',
                     "binotel_groups","binotel_phones",
-                    "statProducts", "statManagers", "statAdvertising",
+                    "statProducts", "statManagers", "statAdvertising", "statProductsTotal",
                     "deliveryOrders","deliveryOrdersStatuses","stockInTrade",
                     "penalties", "activePenalties");
     

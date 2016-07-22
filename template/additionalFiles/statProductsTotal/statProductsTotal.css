@@ -1,0 +1,73 @@
+.stat-products-table, .stat-total-table{
+	width: 100% !important;
+}
+
+.button-period, .add-filter-button, .apply-filters-button{
+	font-size: 13px;
+	padding: 2px 10px;
+	-webkit-border-radius: 2px;
+	        border-radius: 2px;
+}
+
+#table-list,#table-list1{
+    font-family: Arial;
+    border-collapse: collapse;
+}
+
+#table-list tbody tr td, #table-list1 tbody tr td{
+    border: 1px solid;
+    padding: 10px;
+    text-align: center;
+}
+
+#table-list thead tr td, #table-list1 thead tr td{
+    border: 1px solid;
+    text-align: center;
+}
+
+#table-list_length{
+    font-family: Arial;
+    color: #000;
+	margin-right:100px;
+}
+
+.even{
+    background-color: #DADADA;
+}
+
+
+#table-list1_filter input{
+    width: 360px;
+}
+
+#table-list_length,#table-list_filter,#table-list_paginate,#table-list_info{
+    margin-top: 6px;
+    margin-bottom: 10px;
+    font-family: 'Arial';
+    color: #000;
+}
+
+.stat-total-table {
+    width: 100%;
+}
+
+.filters-container{
+    margin: 20px 0 10px;
+    background-color: #F6F6F6;
+}
+
+.filter-panel{
+    padding: 5px 0;
+}
+
+.filter-panel div{
+    padding: 5px 0;
+}
+
+.filter_param, .filter_value{
+    margin-right: 5px;
+}
+
+.filter_value{
+    width: 400px;
+}
