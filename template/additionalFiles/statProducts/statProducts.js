@@ -24,20 +24,19 @@ function getStatProducts(){
             WaitingBarShow('Обработка запроса...'); 
         },
         success: function(data){
-            response = $.parseJSON(data);
-            console.log(response);
-            $(".stat-products-table tbody tr").remove();
-            $(".stat-total-table tbody tr").remove();
-            
+            var response = $.parseJSON(data);
+            var productStat = response.productStat;
+
+            $('.stat-total-table tbody').remove();
+
             statProductTable.fnClearTable();
             statProductTable.fnDraw();
             statProductTable.fnDestroy();
 
-            if (response.success && response.productStat != "")
-                $(".stat-products-table tbody").append(response.productStat);
+            for (var key in productStat)
+                addProductStatRow(productStat[key]);
 
-            if (response.success)
-                $(".stat-total-table tbody").append(response.total);
+            addProductStatTotalRow(productStat["summury"]);
 
             statProductTable = $('.stat-products-table').dataTable({
                 "aLengthMenu": [ 10,25,50,100,200,500,1000, 10000 ],
@@ -53,11 +52,51 @@ function getStatProducts(){
     }); 
 }
 
+function addProductStatRow(statRow) {
+    if (!statRow.name)
+        return;
+
+    var row = $("<tr>").append(
+        $("<td>", {
+            "class": 't-a-l'
+        }).text(statRow.name),
+        $("<td>").text(statRow.requestCount),
+        $("<td>").text(statRow.countOfNew),
+        $("<td>").text(statRow.orderCount),
+        $("<td>").text(statRow.cv2),
+        $("<td>").text(statRow.saledProductCount),
+        $("<td>").text(statRow.avgCheck),
+        $("<td>").text(statRow.addAvgCheck),
+        $("<td>").text(statRow.profit),
+        $("<td>").text(statRow.avgProfit)
+    );
+
+    $('.stat-products-table').append(row);
+}
+
+function addProductStatTotalRow(summuryRow) {
+    var row = $("<tr>").append(
+        $("<td>"),
+        $("<td>").text(summuryRow.requestCount),
+        $("<td>").text(summuryRow.countOfNew),
+        $("<td>").text(summuryRow.orderCount),
+        $("<td>").text(summuryRow.cv2),
+        $("<td>").text(summuryRow.saledProductCount),
+        $("<td>").text(summuryRow.avgCheck),
+        $("<td>").text(summuryRow.addAvgCheck),
+        $("<td>").text(summuryRow.profit),
+        $("<td>").text(summuryRow.avgProfit)
+    );
+
+    $('.stat-total-table').append(row);
+}
+
 function addFilter(){
     var div = $("<div>");
     var select = $("<select>",{
         "class" : "filter-param"
     }).append(
+        '<option value="utm_source">Источник</option>',
         '<option value="utm_campaign">Кампания</option>',
         '<option value="utm_content">Тизер</option>',
         '<option value="utm_term">Площадка</option>');

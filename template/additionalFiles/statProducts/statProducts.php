@@ -343,39 +343,39 @@ function getStatProducts()
 
     $productStat['summury']['avgProfit'] = round($productStat['summury']['profit'] / $productStat['summury']['orderCount'], 2);
 
-    $table = "";
-    foreach ($productStat as $key => $value) {
-        if ($key == 'summury') continue;
-        if (empty($value['name'])) continue;
-        $table .= "<tr>
-        <td style=\"text-align: left;\">" . $value['name'] . "</td>
-        <td>" . $value['requestCount'] . "</td>
-        <td>" . $value['countOfNew'] . "</td>
-        <td>" . $value['orderCount'] . "</td>
-        <td>" . $value['cv2'] . "%</td>
-        <td>" . $value['saledProductCount'] . "</td>
-        <td>" . $value['avgCheck'] . "</td>
-        <td>" . $value['addAvgCheck'] . "</td>
-        <td>" . $value['profit'] . "</td>
-        <td>" . $value['avgProfit'] . "</td>
-    </tr>";
-        unset($bgc);
-    }
+//    $table = "";
+//    foreach ($productStat as $key => $value) {
+//        if ($key == 'summury') continue;
+//        if (empty($value['name'])) continue;
+//        $table .= "<tr>
+//        <td style=\"text-align: left;\">" . $value['name'] . "</td>
+//        <td>" . $value['requestCount'] . "</td>
+//        <td>" . $value['countOfNew'] . "</td>
+//        <td>" . $value['orderCount'] . "</td>
+//        <td>" . $value['cv2'] . "%</td>
+//        <td>" . $value['saledProductCount'] . "</td>
+//        <td>" . $value['avgCheck'] . "</td>
+//        <td>" . $value['addAvgCheck'] . "</td>
+//        <td>" . $value['profit'] . "</td>
+//        <td>" . $value['avgProfit'] . "</td>
+//    </tr>";
+//        unset($bgc);
+//    }
+//
+//    $summury .= "<tr style=\"font-weight: bold\">
+//<td></td>
+//<td>" . $productStat['summury']['requestCount'] . "</td>
+//<td>" . $productStat['summury']['countOfNew'] . "</td>
+//<td>" . $productStat['summury']['orderCount'] . "</td>
+//<td>" . $productStat['summury']['cv2'] . "%</td>
+//<td>" . $productStat['summury']['saledProductCount'] . "</td>
+//<td>" . $productStat['summury']['avgCheck'] . "</td>
+//<td>" . $productStat['summury']['addAvgCheck'] . "</td>
+//<td>" . $productStat['summury']['profit'] . "</td>
+//<td>" . $productStat['summury']['avgProfit'] . "</td>
+//</tr>";
 
-    $summury .= "<tr style=\"font-weight: bold\">
-<td></td>
-<td>" . $productStat['summury']['requestCount'] . "</td>
-<td>" . $productStat['summury']['countOfNew'] . "</td>
-<td>" . $productStat['summury']['orderCount'] . "</td>
-<td>" . $productStat['summury']['cv2'] . "%</td>
-<td>" . $productStat['summury']['saledProductCount'] . "</td>
-<td>" . $productStat['summury']['avgCheck'] . "</td>
-<td>" . $productStat['summury']['addAvgCheck'] . "</td>
-<td>" . $productStat['summury']['profit'] . "</td>
-<td>" . $productStat['summury']['avgProfit'] . "</td>
-</tr>";
-
-    $response = array("success" => true, "productStat" => $table, "total" => $summury, "no_utm" => $noUtmFilter);
+    $response = array("success" => true, "productStat" => $productStat);
     echo json_encode($response);
 }
 
